@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+
+{% block title %}Текущее время{% endblock %}
+
+{% block content %}
+<h1>{{ course }}</h1>
+<ul>
+    <li>Текущая дата: {{ date }}</li>
+    <li>Текущее время: {{ time }}</li>
+</ul>
+{% endblock %}

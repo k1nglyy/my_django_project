@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{% block title %}Мой сайт{% endblock %}</title>
+</head>
+<body>
+    <nav>
+        <ul>
+            <li><a href="/">Главная</a></li>
+            <li><a href="/time/">Текущее время</a></li>
+            <li><a href="/calc/">Калькулятор</a></li>
+        </ul>
+    </nav>
+    <div>
+        {% block content %}
+        {% endblock %}
+    </div>
+</body>
+</html>
