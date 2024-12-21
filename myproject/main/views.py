@@ -1,3 +1,4 @@
+# main/views.py
 import random
 from datetime import datetime
 from django.shortcuts import render
@@ -60,3 +61,25 @@ def history_view(request):
         'calculations': calculations,
     }
     return render(request, 'history.html', context)
+
+def delete_last_expression(request):
+    last_calculation = Calculation.objects.last()
+    if last_calculation:
+        last_calculation.delete()
+    return render(request, 'delete_last_expression.html')
+
+def clear_expressions(request):
+    Calculation.objects.all().delete()
+    return render(request, 'clear_expressions.html')
+
+def add_new_expression(request):
+    expression_text = request.GET.get('expression')
+    if expression_text:
+        try:
+            result = eval(expression_text)
+            Calculation.objects.create(expression=expression_text, result=result)
+            return render(request, 'add_new_expression.html', {'message': 'Ваше выражение добавлено'})
+        except Exception as e:
+            return render(request, 'add_new_expression.html', {'message': f'Ошибка при вычислении выражения: {e}'})
+    else:
+        return render(request, 'add_new_expression.html', {'message': 'Для добавления нового выражения используйте URL-параметр expression. Пример: /new/?expression=ваше_выражение'})
