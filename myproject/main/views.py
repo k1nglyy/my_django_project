@@ -1,8 +1,9 @@
-# main/views.py
-import random
+import re
+import  random
 from datetime import datetime
 from django.shortcuts import render
-from .models import Calculation
+from django.contrib.auth.decorators import login_required
+from .models import StringRequest, Calculation
 
 def generate_expression():
     num_terms = random.randint(2, 4)
@@ -83,3 +84,40 @@ def add_new_expression(request):
             return render(request, 'add_new_expression.html', {'message': f'Ошибка при вычислении выражения: {e}'})
     else:
         return render(request, 'add_new_expression.html', {'message': 'Для добавления нового выражения используйте URL-параметр expression. Пример: /new/?expression=ваше_выражение'})
+
+@login_required
+def str2words(request):
+    if request.method == 'POST':
+        input_string = request.POST.get('input_string', '')
+        words = re.findall(r'\b\w+\b', input_string)
+        numbers = re.findall(r'\b\d+\b', input_string)
+
+        word_count = len(words)
+        number_count = len(numbers)
+
+        StringRequest.objects.create(
+            user=request.user,
+            input_string=input_string,
+            word_count=word_count,
+            char_count=len(input_string.replace(' ', '')),
+            date=datetime.now().date(),
+            time=datetime.now().time()
+        )
+
+        context = {
+            'input_string': input_string,
+            'word_count': word_count,
+            'number_count': number_count,
+            'words': words,
+            'numbers': numbers,
+        }
+        return render(request, 'str2words.html', context)
+    return render(request, 'str2words.html')
+
+@login_required
+def str_history(request):
+    history = StringRequest.objects.filter(user=request.user).order_by('-date', '-time')
+    context = {
+        'history': history,
+    }
+    return render(request, 'str_history.html', context)

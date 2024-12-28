@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>История запросов</title>
+</head>
+<body>
+    <h1>История запросов</h1>
+    <ul>
+        {% for item in history %}
+            <li>
+                Дата: {{ item.date }}<br>
+                Время: {{ item.time }}<br>
+                Входящая строка: {{ item.input_string }}<br>
+                Количество слов: {{ item.word_count }}<br>
+                Количество символов: {{ item.char_count }}
+            </li>
+        {% endfor %}
+    </ul>
+</body>
+</html>

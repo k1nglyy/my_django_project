@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Обработка строки</title>
+</head>
+<body>
+    <h1>Обработка строки</h1>
+    <form method="post">
+        {% csrf_token %}
+        <label for="input_string">Введите строку:</label>
+        <input type="text" id="input_string" name="input_string" required>
+        <button type="submit">Отправить</button>
+    </form>
+    {% if input_string %}
+        <h2>Результаты:</h2>
+        <p>Количество слов: {{ word_count }}</p>
+        <p>Количество чисел: {{ number_count }}</p>
+        <h3>Слова:</h3>
+        <ul>
+            {% for word in words %}
+                <li>{{ word }}</li>
+            {% endfor %}
+        </ul>
+        <h3>Числа:</h3>
+        <ul>
+            {% for number in numbers %}
+                <li>{{ number }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+</body>
+</html>
