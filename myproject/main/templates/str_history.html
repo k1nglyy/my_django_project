@@ -1,20 +1,18 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>История запросов</title>
-</head>
-<body>
-    <h1>История запросов</h1>
-    <ul>
-        {% for item in history %}
-            <li>
-                Дата: {{ item.date }}<br>
-                Время: {{ item.time }}<br>
-                Входящая строка: {{ item.input_string }}<br>
-                Количество слов: {{ item.word_count }}<br>
-                Количество символов: {{ item.char_count }}
-            </li>
-        {% endfor %}
-    </ul>
-</body>
-</html>
+{% extends 'base.html' %}
+
+{% block title %}История строк{% endblock %}
+
+{% block content %}
+<h1 class="mt-5">История строк</h1>
+<ul class="list-group">
+    {% for entry in history %}
+    <li class="list-group-item">
+        Дата: {{ entry.date }}<br>
+        Время: {{ entry.time }}<br>
+        Входящая строка: {{ entry.input_string }}<br>
+        Количество слов: {{ entry.word_count }}<br>
+        Количество символов: {{ entry.char_count }}
+    </li>
+    {% endfor %}
+</ul>
+{% endblock %}

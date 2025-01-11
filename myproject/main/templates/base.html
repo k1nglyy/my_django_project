@@ -1,21 +1,60 @@
 <!DOCTYPE html>
-<html>
+<html lang="ru">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}Мой сайт{% endblock %}</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            padding-top: 56px;
+        }
+    </style>
 </head>
 <body>
-    <nav>
-        <ul>
-            <li><a href="/">Главная</a></li>
-            <li><a href="/time/">Текущее время</a></li>
-            <li><a href="/calc/">Калькулятор</a></li>
-            <li><a href="/expression/">Выражение</a></li>
-            <li><a href="/history/">История выражений</a></li>
-        </ul>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
+        <a class="navbar-brand" href="{% url 'index_page' %}">Главная</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'time_page' %}">Текущее время</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'calc_page' %}">Калькулятор</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'expression' %}">Выражение</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'history' %}">История выражений</a>
+                </li>
+                {% if user.is_authenticated %}
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'str2words' %}">Строка в слова</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'str_history' %}">История строк</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'logout' %}">Выйти</a>
+                </li>
+                {% else %}
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'login' %}">Войти</a>
+                </li>
+                {% endif %}
+            </ul>
+        </div>
     </nav>
-    <div>
+    <div class="container mt-5">
         {% block content %}
         {% endblock %}
     </div>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>

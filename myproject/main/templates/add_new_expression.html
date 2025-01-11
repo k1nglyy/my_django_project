@@ -1,9 +1,8 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Добавление выражения</title>
-</head>
-<body>
-    <h1>{{ message }}</h1>
-</body>
-</html>
+{% extends 'base.html' %}
+
+{% block title %}Добавление нового выражения{% endblock %}
+
+{% block content %}
+<h1 class="mt-5">Добавление нового выражения</h1>
+<p>{{ message }}</p>
+{% endblock %}

@@ -1,8 +1,10 @@
-{% extends "base.html" %}
+{% extends 'base.html' %}
 
 {% block title %}Выражение{% endblock %}
 
 {% block content %}
-<h1>{{ course }}</h1>
-<p>{{ expression }} = {{ result }}</p>
+<h1 class="mt-5">Выражение</h1>
+<p>Выражение: {{ expression }}</p>
+<p>Результат: {{ result }}</p>
+<p>{{ course }}</p>
 {% endblock %}

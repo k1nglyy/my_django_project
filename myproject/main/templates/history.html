@@ -1,21 +1,13 @@
-{% extends "base.html" %}
+{% extends 'base.html' %}
 
 {% block title %}История выражений{% endblock %}
 
 {% block content %}
-<h1>{{ course }}</h1>
-<table border="1">
-    <tr>
-        <th>Expression</th>
-        <th>Result</th>
-        <th>Date</th>
-    </tr>
-    {% for calc in calculations %}
-    <tr>
-        <td>{{ calc.expression }}</td>
-        <td>{{ calc.result }}</td>
-        <td>{{ calc.created_at }}</td>
-    </tr>
+<h1 class="mt-5">История выражений</h1>
+<ul class="list-group">
+    {% for calculation in calculations %}
+    <li class="list-group-item">{{ calculation.expression }} = {{ calculation.result }}</li>
     {% endfor %}
-</table>
+</ul>
+<p>{{ course }}</p>
 {% endblock %}

@@ -1,9 +1,9 @@
-import re
-import  random
-from datetime import datetime
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from .models import StringRequest, Calculation
+import re
+import random
+from datetime import datetime
 
 def generate_expression():
     num_terms = random.randint(2, 4)

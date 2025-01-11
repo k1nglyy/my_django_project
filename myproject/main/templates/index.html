@@ -1,9 +1,11 @@
-{% extends "base.html" %}
+{% extends 'base.html' %}
 
-{% block title %}Главная страница{% endblock %}
+{% block title %}Главная{% endblock %}
 
 {% block content %}
-<h1>{{ course }}</h1>
+<h1 class="mt-5">Добро пожаловать на главную страницу!</h1>
+<p>Это главная страница вашего сайта.</p>
+<p>{{ course }}</p>
 <p>{{ author }}</p>
 <p>{{ page_count }}</p>
 {% endblock %}
