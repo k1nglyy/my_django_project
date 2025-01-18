@@ -1,0 +1,71 @@
+{% extends 'base.html' %}
+
+{% block title %}Clicker{% endblock %}
+
+{% block content %}
+<h1 class="mt-5">Прокачка возможностей студента</h1>
+<div>
+    <p>HP: <span id="hp">{{ character.hp }}</span></p>
+    <p>IQ: <span id="iq">{{ character.iq }}</span></p>
+    <p>Happiness: <span id="happiness">{{ character.happiness }}</span></p>
+</div>
+<div>
+    <button onclick="eat()">Поесть</button>
+    <button onclick="study()">Поучиться</button>
+    <button onclick="sleep()">Поспать</button>
+    <button onclick="doAll()">Сделать всё хорошо</button>
+    <button onclick="save()">Сохранить значения на сервер</button>
+</div>
+
+<script>
+    let hp = {{ character.hp }};
+    let iq = {{ character.iq }};
+    let happiness = {{ character.happiness }};
+
+    function updateValues() {
+        document.getElementById('hp').innerText = hp;
+        document.getElementById('iq').innerText = iq;
+        document.getElementById('happiness').innerText = happiness;
+    }
+
+    function eat() {
+        hp += 4;
+        updateValues();
+    }
+
+    function study() {
+        iq += 6;
+        updateValues();
+    }
+
+    function sleep() {
+        happiness += 3;
+        updateValues();
+    }
+
+    function doAll() {
+        hp += 4;
+        iq += 6;
+        happiness += 3;
+        updateValues();
+    }
+
+    function save() {
+        fetch('{% url "update_parameter" "all" %}', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRFToken': '{{ csrf_token }}'
+            },
+            body: JSON.stringify({ hp: hp, iq: iq, happiness: happiness })
+        })
+        .then(response => response.json())
+        .then(data => {
+            hp = data.hp;
+            iq = data.iq;
+            happiness = data.happiness;
+            updateValues();
+        });
+    }
+</script>
+{% endblock %}

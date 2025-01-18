@@ -13,3 +13,8 @@ class StringRequest(models.Model):
     char_count = models.IntegerField()
     date = models.DateField()
     time = models.TimeField()
+
+class Character(models.Model):
+    hp = models.IntegerField(default=0)
+    iq = models.IntegerField(default=0)
+    happiness = models.IntegerField(default=0)

@@ -1,9 +1,14 @@
-from django.shortcuts import render, redirect
+
+from django.shortcuts import render, get_object_or_404
+from django.http import JsonResponse
+from .models import Character, Calculation, StringRequest
+from .forms import CharacterForm
+import json
+from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth.decorators import login_required
-from .models import StringRequest, Calculation
-import re
-import random
 from datetime import datetime
+import random
+import re
 
 def generate_expression():
     num_terms = random.randint(2, 4)
@@ -121,3 +126,26 @@ def str_history(request):
         'history': history,
     }
     return render(request, 'str_history.html', context)
+
+def clicker_view(request):
+    character, created = Character.objects.get_or_create(id=1)
+    if request.method == 'POST':
+        form = CharacterForm(request.POST, instance=character)
+        if form.is_valid():
+            form.save()
+            return JsonResponse({'hp': character.hp, 'iq': character.iq, 'happiness': character.happiness})
+    else:
+        form = CharacterForm(instance=character)
+    return render(request, 'clicker.html', {'form': form, 'character': character})
+
+@csrf_exempt
+def update_parameter(request):
+    if request.method == 'POST':
+        data = json.loads(request.body)
+        character, created = Character.objects.get_or_create(id=1)
+        character.hp = data.get('hp', character.hp)
+        character.iq = data.get('iq', character.iq)
+        character.happiness = data.get('happiness', character.happiness)
+        character.save()
+        return JsonResponse({'hp': character.hp, 'iq': character.iq, 'happiness': character.happiness})
+    return JsonResponse({'error': 'Invalid request method'}, status=400)

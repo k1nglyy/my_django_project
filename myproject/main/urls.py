@@ -15,4 +15,6 @@ urlpatterns = [
     path('str_history/', views.str_history, name='str_history'),
     path('login/', auth_views.LoginView.as_view(), name='login'),
     path('logout/', auth_views.LogoutView.as_view(), name='logout'),
+    path('clicker/', views.clicker_view, name='clicker'),
+    path('update/<str:parameter>/', views.update_parameter, name='update_parameter'),
 ]
