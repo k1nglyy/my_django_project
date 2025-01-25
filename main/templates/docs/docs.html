@@ -1,0 +1,29 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Документация</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        h1 {
+            color: #333;
+        }
+        p {
+            line-height: 1.6;
+        }
+        a {
+            color: #007bff;
+        }
+    </style>
+</head>
+<body>
+    <h1>Документация проекта</h1>
+    <p>Добро пожаловать в документацию проекта. Здесь вы найдете информацию о проекте и его функционале.</p>
+    <p>Для просмотра сгенерированной документации перейдите по <a href="{% static 'docs/build/html/index.html' %}">этой ссылке</a>.</p>
+</body>
+</html>
